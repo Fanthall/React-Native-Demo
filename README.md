@@ -27,9 +27,9 @@ npx react-native run-ios
 Ekran görüntüleri sadece Android cihazlar üzerinden alınmıştır.
 
 ### Tablet 
-![Alt text](Images/Tablet.png?raw=true "Tablet ekran görüntüsü")
+![Screenshot](Images/Tablet.png)
 
 ### Telefon 
-![Alt text](Images/Telefon-1.png?raw=true "Telefon ekran görüntüsü")
+![Screenshot](Images/Telefon-1.png)
 
-![Alt text](Images/Telefon-2.png?raw=true "Telefon ekran görüntüsü")
+![Screenshot](Images/Telefon-2.png)
