@@ -28,7 +28,7 @@ Ekran görüntüleri sadece Android cihazlar üzerinden alınmıştır.
 
 ### Tablet 
 <p align="center">
-  <img src="mages/Tablet.png">
+  <img src="Images/Tablet.png">
 </p>
 
 ### Telefon 
