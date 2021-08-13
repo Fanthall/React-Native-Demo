@@ -28,13 +28,13 @@ Ekran görüntüleri sadece Android cihazlar üzerinden alınmıştır.
 
 ### Tablet 
 <p align="center">
-  <img width="460" height="300" src="mages/Tablet.png">
+  <img src="mages/Tablet.png">
 </p>
 
 ### Telefon 
 <p align="center">
-  <img width="460" height="300" src="Images/Telefon-1.png">
+  <img src="Images/Telefon-1.png">
 </p>
 <p align="center">
-  <img width="460" height="300" src="Images/Telefon-2.png">
+  <img src="Images/Telefon-2.png">
 </p>
