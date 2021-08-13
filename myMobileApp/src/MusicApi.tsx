@@ -1,50 +1,69 @@
 import axios, {CancelToken} from 'axios';
 import React, {useState, useEffect, useRef, refreshInUrl} from 'react';
-import {Text, Image, View, FlatList, SafeAreaView} from 'react-native';
+import {
+  Text,
+  Image,
+  FlatList,
+  SafeAreaView,
+  TouchableOpacity,
+} from 'react-native';
 import {styles, colors, fonts} from './Styles';
-
+import {useNavigation} from '@react-navigation/core';
 import variables from './variables';
+import {PushDetailScreen} from './Navigation';
 
+import deviceInfo from 'react-native-device-info';
 interface SpotfyData {
   URL: string;
   ArtistName: string;
   MusicName: string;
+  ID: string;
 }
-
-const Item = ({Artist, Music, URL}) => (
-  <View style={[styles.CenterContent, styles.row, styles.MusicRow]}>
-    <Image
-      style={[styles.musicsLogo, styles.logo, styles.bordeRadius]}
-      source={{
-        uri: URL,
-      }}
-    />
-    <Text
-      style={[
-        colors.floralwhite,
-        fonts.f15,
-        styles.musicsArtist,
-        styles.textContentCenter,
-      ]}>
-      {Artist}
-    </Text>
-    <Text
-      style={[
-        colors.floralwhite,
-        fonts.f15,
-        styles.musicsName,
-        styles.textContentCenter,
-      ]}>
-      {Music}
-    </Text>
-  </View>
+const Item = ({Artist, Music, URL, ID}) => (
+  <TouchableOpacity
+    style={[styles.CenterContent, styles.row, styles.MusicRow, styles.button]}
+    onPress={() => {
+      PushDetailScreen(
+        {name: 'Detay', ID: ID},
+        deviceInfo.isTablet() ? null : navigation,
+      );
+    }}>
+    <>
+      <Image
+        style={[styles.musicsLogo, styles.logo, styles.bordeRadius]}
+        source={{
+          uri: URL,
+        }}
+      />
+      <Text
+        style={[
+          colors.floralwhite,
+          fonts.f15,
+          styles.musicsArtist,
+          styles.textContentCenter,
+        ]}>
+        {Artist}
+      </Text>
+      <Text
+        style={[
+          colors.floralwhite,
+          fonts.f15,
+          styles.musicsName,
+          styles.textContentCenter,
+        ]}>
+        {Music}
+      </Text>
+    </>
+  </TouchableOpacity>
 );
-
 const datas = [];
-export default MusicInfo = () => {
+let navigation;
+
+const MusicInfo = () => {
   const [name, setname] = useState('');
   const componentIsMounted = useRef(true);
   const [refreshInterval, setRefreshInterval] = useState(refreshInUrl || 0);
+  navigation = useNavigation();
 
   useEffect(() => {
     return () => {
@@ -53,7 +72,7 @@ export default MusicInfo = () => {
   }, []);
 
   useEffect(() => {
-    setRefreshInterval(10000);
+    setRefreshInterval(1000);
     const cancelTokenSource = CancelToken.source();
 
     async function getDatas() {
@@ -73,6 +92,7 @@ export default MusicInfo = () => {
             URL: res.data.item.album.images[0].url,
             ArtistName: res.data.item.album.artists[0].name,
             MusicName: res.data.item.name,
+            ID: res.data.item.id,
           };
           if (tempData.ArtistName != '') {
             if (datas.length == 0) {
@@ -80,8 +100,8 @@ export default MusicInfo = () => {
             } else if (datas[0].MusicName != tempData.MusicName) {
               datas.splice(0, 0, tempData);
             }
+            setname(res.data.item.album.artists[0].name);
           }
-          setname(res.data.item.album.artists[0].name);
         }
       } catch (err) {
         if (axios.isCancel(err)) {
@@ -103,7 +123,12 @@ export default MusicInfo = () => {
   }, [refreshInterval]);
 
   const renderItem = ({item}) => (
-    <Item Artist={item.ArtistName} Music={item.MusicName} URL={item.URL} />
+    <Item
+      Artist={item.ArtistName}
+      Music={item.MusicName}
+      URL={item.URL}
+      ID={item.ID}
+    />
   );
 
   return (
@@ -112,9 +137,10 @@ export default MusicInfo = () => {
         data={datas}
         renderItem={renderItem}
         keyExtractor={item => {
-          item.ArtistName, item.MusicName, item.URL;
+          item.ArtistName, item.MusicName, item.URL, item.ID;
         }}
       />
     </SafeAreaView>
   );
 };
+export default MusicInfo;

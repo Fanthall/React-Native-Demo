@@ -5,77 +5,64 @@
  * @format
  * @flow strict-local
  */
+import AsyncStorage from '@react-native-community/async-storage';
 import React from 'react';
 import type {Node} from 'react';
-
-import {Text, View, Image} from 'react-native';
+import {NavigationContainer} from '@react-navigation/native';
 
 import {styles, colors, fonts} from './src/Styles';
-import UserInfo from './src/api';
-import MusicInfo from './src/MusicApi';
+import {Text, View} from 'react-native';
+import {RootStack} from './src/Stack/Navigation';
+import {InfoStack} from './src/Stack/NavigationDetail';
+import {Header} from './src/Header';
 
+import deviceInfo from 'react-native-device-info';
 const App: () => Node = () => {
-  return (
-    <View style={[styles.container]}>
-      <View style={[styles.header, colors.backDarkHead]}>
-        <View style={[styles.headerLogoView]}>
-          <Image
-            style={[styles.tinyLogo, styles.bordeRadius]}
-            source={{
-              uri: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/19/Spotify_logo_without_text.svg/1024px-Spotify_logo_without_text.svg.png',
-            }}
-          />
-        </View>
-        <View style={[styles.headerTitleView]}>
-          <Text style={[colors.floralwhite, fonts.f20]}>Spotfy History </Text>
-        </View>
-        <View style={[styles.headerUserView]}>
-          <UserInfo />
-        </View>
+  if (deviceInfo.isTablet()) {
+    console.log('Tablet');
+    return (
+      <View style={[styles.TabletMain]}>
+        <NavigationContainer independent={true}>
+          <View style={[styles.LeftWindow]}>
+            <View style={[styles.container]}>
+              <Header style={[styles.header, colors.backDarkHead]} />
+
+              <View style={[styles.main, colors.backDarkMain]}>
+                <RootStack />
+              </View>
+              <View style={[styles.footer, colors.backDarkFoot]}>
+                <Text style={[colors.gold, fonts.f15, styles.MarginB2]}>
+                  Created by Fanthal
+                </Text>
+              </View>
+            </View>
+          </View>
+          <View style={[styles.RightWindow]}>
+            <InfoStack />
+          </View>
+        </NavigationContainer>
       </View>
-      <View style={[styles.main, colors.backDarkMain]}>
-        <View style={[styles.contentCenter]}>
-          <Text
-            style={[colors.floralwhite, fonts.f20, styles.textContentCenter]}>
-            Music Lists{' '}
-          </Text>
+    );
+  } else {
+    console.log('Phone');
+
+    return (
+      <NavigationContainer>
+        <View style={[styles.container]}>
+          <Header style={[styles.header, colors.backDarkHead]} />
+
+          <View style={[styles.main, colors.backDarkMain]}>
+            <RootStack />
+          </View>
+          <View style={[styles.footer, colors.backDarkFoot]}>
+            <Text style={[colors.gold, fonts.f15, styles.MarginB2]}>
+              Created by Fanthal
+            </Text>
+          </View>
         </View>
-        <View style={[styles.CenterContent, styles.row, styles.marginbottom5]}>
-          <Text
-            style={[
-              colors.floralwhite,
-              fonts.f15,
-              styles.textContentCenter,
-              styles.musicsLogo,
-            ]}>
-            Pictures
-          </Text>
-          <Text
-            style={[
-              colors.floralwhite,
-              fonts.f15,
-              styles.musicsArtist,
-              styles.textContentCenter,
-            ]}>
-            Artist Name
-          </Text>
-          <Text
-            style={[
-              colors.floralwhite,
-              fonts.f15,
-              styles.musicsName,
-              styles.textContentCenter,
-            ]}>
-            Music Name
-          </Text>
-        </View>
-        <MusicInfo />
-      </View>
-      <View style={[styles.footer, colors.backDarkFoot]}>
-        <Text style={[colors.gold, fonts.f15]}>Created by Fanthal</Text>
-      </View>
-    </View>
-  );
+      </NavigationContainer>
+    );
+  }
 };
 
 export default App;

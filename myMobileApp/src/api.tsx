@@ -1,7 +1,8 @@
 import axios, {CancelToken} from 'axios';
 import React, {useState, useEffect, useRef} from 'react';
-import {Text, Image, View} from 'react-native';
+import {Text, Image, View, TouchableOpacity} from 'react-native';
 import {styles, colors, fonts} from './Styles';
+import {useNavigation} from '@react-navigation/core';
 
 import variables from './variables';
 
@@ -9,7 +10,7 @@ export default function UserInfo() {
   const [name, setname] = useState('');
   const [URL, setURL] = useState('');
   const componentIsMounted = useRef(true);
-
+  const navigation = useNavigation();
   useEffect(() => {
     return () => {
       componentIsMounted.current = false;
@@ -22,7 +23,7 @@ export default function UserInfo() {
     async function getDatas() {
       try {
         const res = await axios.get(
-          variables.SpotfyApi.BaseUri + 'users/'+variables.SpotfyApi.UserID ,
+          variables.SpotfyApi.BaseUri + 'users/' + variables.SpotfyApi.UserID,
           {
             headers: {
               Accept: 'application/json',
@@ -51,15 +52,21 @@ export default function UserInfo() {
   }, []);
   return (
     <>
-      <View style={[styles.CenterContent]}>
+      <TouchableOpacity
+        style={[styles.CenterContent]}
+        onPress={() => {
+          navigation.navigate({
+            name: 'UserEmpty',
+          });
+        }}>
         <Image
           style={[styles.tinyLogo, styles.bordeRadius]}
           source={{
             uri: URL,
           }}
         />
-        <Text style={[colors.floralwhite, fonts.f10]}>{name}</Text>
-      </View>
+        <Text style={[colors.floralwhite, fonts.f12]}>{name}</Text>
+      </TouchableOpacity>
     </>
   );
 }

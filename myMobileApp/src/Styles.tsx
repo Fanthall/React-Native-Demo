@@ -16,6 +16,12 @@ export const colors = StyleSheet.create({
   gold: {
     color: '#ffd700',
   },
+  green: {
+    color: '#39CC4B',
+  },
+  orange: {
+    color: '#EA7309',
+  },
 });
 
 export const fonts = StyleSheet.create({
@@ -24,6 +30,8 @@ export const fonts = StyleSheet.create({
   },
   f10: {
     fontSize: 10,
+  }, f12: {
+    fontSize: 12,
   },
   f15: {
     fontSize: 15,
@@ -62,21 +70,27 @@ export const styles = StyleSheet.create({
     flexDirection: 'column',
     flex: 10,
   }, 
+  mainDetay: {
+    flexDirection: 'column',
+    flex: 10,
+  }, 
   CenterContent: {
     alignItems: 'center',
     justifyContent: 'center',
   },
   headerUserView: {
-    flex: 3,
+    flex: 5,
     alignItems: 'center',
     justifyContent: 'center',
     marginTop: '1%',
+    marginRight: '-4%',
   },
   headerTitleView: {
-    flex: 6,
+    flex: 5,
     alignItems: 'center',
     justifyContent: 'center',
     marginTop: '3%',
+    marginLeft: '8%',
   },
   headerLogoView: {
     flex: 3,
@@ -113,6 +127,10 @@ export const styles = StyleSheet.create({
     width:25,
     height: 40,
   },
+  normalLogo: {
+    width: 175,
+    height: 175,
+  },
   marginbottom5:{
     marginBottom: '5%',
   },
@@ -122,4 +140,25 @@ export const styles = StyleSheet.create({
   MusicRow:{
     marginBottom: '1%',
   },
+  button: {
+    backgroundColor: "#262525",
+  },
+  MarginB2: {
+    marginBottom: '3%',
+  }, 
+  LeftWindow: {
+    flex: 7,
+  }, 
+  RightWindow: {
+    flex: 15,
+  },
+  TabletMain: {
+    flex: 1,
+    alignContent: 'flex-start',
+    flexDirection: 'row',
+  }, 
+  border: {
+    borderWidth: 5,
+    borderColor: '#FF1744',
+  }
 });
