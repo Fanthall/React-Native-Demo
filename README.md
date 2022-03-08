@@ -1,6 +1,6 @@
 # React-Native-Demo
 Stajımda React Native öğrenme ve mantığını kavrama için yaptığım bir uygulama.
-Uygulamada Spotfy Api sistemi yardımı ile anlık çalan şarkıların listelendiği bir liste oluşturuyor.
+Uygulamada Spotfy Api sisteminin yardımı ile anlık çalan şarkıların listelendiği bir liste oluşturuyor.
 (Daha geliştirme aşamasında eklemeler yapılacaktır.)
 ## Kullanım
 
